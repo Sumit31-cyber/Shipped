@@ -1,12 +1,5 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import React, { useState } from "react";
+import { Image, Pressable, Text, TextInput, View, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
 import { styles } from "./styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
@@ -18,12 +11,16 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-
+import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../../../firebaseConfig";
 
 const SignInScreen = () => {
   const [visible, setVisible] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   let [loadFonts] = useFonts({
     Poppins_100Thin,
@@ -35,6 +32,16 @@ const SignInScreen = () => {
     Poppins_700Bold,
   });
 
+  const signInUser = () => {
+    signInWithEmailAndPassword(authentication, email, password)
+      .then((result) => {
+        console.log("Successful");
+        navigation.navigate("home");
+      })
+      .catch((error) => Alert.alert(error.message));
+  };
+
+  const navigation = useNavigation();
   if (!loadFonts) {
     return <AppLoading />;
   }
@@ -46,20 +53,37 @@ const SignInScreen = () => {
       <Text style={[styles.subTitle, { fontFamily: "Poppins_400Regular" }]}>
         Welcome back you've been missed!
       </Text>
-      <TextInput style={styles.textInput} placeholder="Email Address" />
+      <View style={styles.textInput}>
+        <TextInput
+          style={{ width: "100%" }}
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          placeholder="Email Address"
+        />
+      </View>
 
-      <TextInput
-        secureTextEntry={visible}
-        style={styles.textInput}
-        placeholder="Password"
-      />
-      <Pressable onPress={() => setVisible(!visible)} style={styles.icon}>
-        <FontAwesome5 name="eye-slash" size={20} color="#E6E9F1" />
-      </Pressable>
+      <View
+        style={[
+          styles.textInput,
+          { flexDirection: "row", justifyContent: "space-between" },
+        ]}
+      >
+        <TextInput
+          style={{ width: "90%" }}
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={visible}
+          placeholder="Password"
+        />
+        <Pressable onPress={() => setVisible(!visible)} style={{}}>
+          <FontAwesome5 name="eye-slash" size={20} color="grey" />
+        </Pressable>
+      </View>
+
       <Text style={[styles.recoveryPassword, { textAlign: "right" }]}>
         Recovery Password
       </Text>
-      <Pressable style={styles.button}>
+      <Pressable onPress={signInUser} style={styles.button}>
         <Text style={styles.buttonText}>Sign In</Text>
       </Pressable>
       <View
@@ -94,9 +118,16 @@ const SignInScreen = () => {
           />
         </Pressable>
       </View>
-      <Text style={[styles.recoveryPassword, { textAlign: "center" }]}>
-        Not A Member? <Text style={{ color: "#5EAAA8" }}>Register now</Text>
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <Text style={{ color: "grey", fontFamily: "Poppins_300Light" }}>
+          Not a member?{" "}
+        </Text>
+        <Pressable onPress={() => navigation.navigate("register")}>
+          <Text style={{ color: "#5EAAA8", fontFamily: "Poppins_300Light" }}>
+            Register Now
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };

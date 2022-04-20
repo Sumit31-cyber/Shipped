@@ -1,5 +1,12 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
 import { styles } from "./styles";
 import {
   Poppins_100Thin,
@@ -12,11 +19,22 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
+import { authentication } from "../../../firebaseConfig";
+
+import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 const OnBoarding = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    authentication.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Tabs");
+      }
+    });
+  }, []);
   let [loadFonts] = useFonts({
     Poppins_100Thin,
     Poppins_200ExtraLight,
@@ -60,20 +78,26 @@ const OnBoarding = () => {
           marginTop: "auto",
         }}
       >
-        <TouchableOpacity
+        <Pressable
+          onPress={() => {
+            navigation.navigate("register");
+          }}
           style={[styles.buttonStyle, { backgroundColor: "#9AD4DA" }]}
         >
           <Text style={[styles.text, { fontFamily: "Poppins_400Regular" }]}>
             Register
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("signin");
+          }}
           style={[styles.buttonStyle, { backgroundColor: "#EDB8CC" }]}
         >
           <Text style={[styles.text, { fontFamily: "Poppins_400Regular" }]}>
             Sign in
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

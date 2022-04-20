@@ -79,6 +79,8 @@ export const styles = StyleSheet.create({
     iconsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        padding: 30
+        padding: 30,
+        marginBottom: 15,
+        marginTop: 5
     }
 })
