@@ -3,7 +3,7 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ProfileScreen from "./ProfileScreen/ProfileScreen";
+import ProfileScreen from "../screens/profileScreen/ProfileScreen";
 import HomeScreen from "./homeScreen";
 import LikeScreen from "./likeScreen/LikeScreen";
 import CustomHeader from "../components/CustomHeader";

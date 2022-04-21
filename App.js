@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/homeScreen';
 import Tabs from './src/screens/Tabs';
+import CartScreen from './src/screens/cartScreen/CartScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name="onBorading" component={OnBoarding} options={{ headerShown: false }} />
         <Stack.Screen name="signin" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="cart" component={CartScreen} />
         <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

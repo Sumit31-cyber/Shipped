@@ -3,30 +3,20 @@ import {
   Button,
   FlatList,
   Image,
+  Pressable,
   ScrollView,
   StatusBar,
   Text,
+  Dimensions,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "./styles";
-import { getDoc, doc, collection } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
-import CustomHeader from "../../components/CustomHeader";
-
-const data = [
-  {
-    id: "1",
-    name: "Jorden",
-    image:
-      "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/1ef3ae1e-7206-4a5b-bbe0-434c5bad97aa/jordan-why-not-5-pf-basketball-shoes-r2JwFc.png",
-    desc: "Russell Westbrook is fast. The Jordan Why Not .5 helps keep him contained with updated cushioning, data-informed traction and a full-foot fit system that keeps him in control. It has the rugged utility look of a trail running shoe combined with the on-purpose clash of colours and materials at the core of Why Not?",
-    price: "$200",
-  },
-];
+import { data } from "../../../assets/data";
 
 const HomeScreen = () => {
+  const [activeTab, setActiveTab] = useState("Nike");
+  const height = Dimensions.get("window").height;
+  const width = Dimensions.get("window").width;
   // const [data, setData] = useState([]);
 
   // useEffect(() => {
@@ -38,7 +28,13 @@ const HomeScreen = () => {
   // }, []);
 
   return (
-    <View style={{ backgroundColor: "white", flex: 1 }}>
+    <View
+      style={{
+        backgroundColor: "white",
+        flex: 1,
+        padding: 12,
+      }}
+    >
       <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
       <ScrollView
         showsHorizontalScrollIndicator={false}
@@ -49,35 +45,149 @@ const HomeScreen = () => {
           padding: 8,
         }}
       >
-        <BrandTag name={"Nike"} />
-        <BrandTag name={"Adidas"} />
-        <BrandTag name={"Balenciaga"} />
-        <BrandTag name={"Sketchers"} />
-        <BrandTag name={"Bata"} />
-        <BrandTag name={"Puma"} />
+        <BrandTag
+          name={"Nike"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          name={"Adidas"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          name={"Balenciaga"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          name={"Sketchers"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          name={"Bata"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          name={"Puma"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
       </ScrollView>
+
+      {/* <View
+        style={{
+          alignItems: "center",
+          marginBottom: 90,
+        }}
+      > */}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          alignSelf: "center",
+        }}
+        style={{
+          marginBottom: 70,
+        }}
+        numColumns={2}
+        data={data}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              marginHorizontal: 8,
+              marginVertical: 10,
+              height: 250,
+              width: width / 2.3,
+              backgroundColor: "#C8C6C6",
+              borderRadius: 12,
+            }}
+          >
+            <Image
+              style={{
+                height: 180,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
+                borderBottomRightRadius: 23,
+              }}
+              source={{
+                uri: item.image,
+              }}
+              resizeMode="cover"
+            />
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: "Poppins_500Medium",
+                }}
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 20,
+                  fontFamily: "Poppins_600SemiBold",
+                }}
+              >
+                {item.price}
+              </Text>
+            </View>
+            <Text
+              style={{
+                color: "white",
+                marginHorizontal: 5,
+                fontFamily: "Poppins_400Regular",
+                paddingHorizontal: 5,
+              }}
+            >
+              {item.desc}
+            </Text>
+          </View>
+        )}
+      />
     </View>
+    // </View>
   );
 };
 
-const BrandTag = ({ name }) => {
+const BrandTag = ({ name, setActiveTab, activeTab }) => {
   return (
-    <Text
-      style={{
-        paddingHorizontal: 18,
-        paddingVertical: 5,
-        borderRadius: 20,
-        fontSize: 15,
-        backgroundColor: "#FD5100",
-        marginRight: 30,
-        alignSelf: "center",
-        fontFamily: "Poppins_300Light",
-        letterSpacing: 1,
-        color: "white",
-      }}
-    >
-      {name}
-    </Text>
+    <Pressable onPress={() => setActiveTab(name)}>
+      <View
+        style={{
+          paddingHorizontal: 18,
+          paddingVertical: 5,
+          borderRadius: 20,
+          marginRight: 30,
+          backgroundColor: activeTab === name ? "#F60400" : "#FD5100",
+          elevation: 5,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 15,
+            // alignSelf: "center",
+            fontFamily: "Poppins_300Light",
+            letterSpacing: 1,
+            color: "white",
+          }}
+        >
+          {name}
+        </Text>
+      </View>
+    </Pressable>
   );
 };
 
