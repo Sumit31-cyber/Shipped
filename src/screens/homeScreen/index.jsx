@@ -11,21 +11,25 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { data } from "../../../assets/data";
+import { shoesData } from "../../../assets/data";
 
 const HomeScreen = () => {
-  const [activeTab, setActiveTab] = useState("Nike");
+  const [activeTab, setActiveTab] = useState("Puma");
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
-  // const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   const myDoc = doc(db, "shoes", "Nike");
-  //   getDoc(myDoc).then((doc) => {
-  //     setData(doc.data());
-  //     console.log(data);
-  //   });
-  // }, []);
+  const [data, setData] = useState(shoesData);
+
+  const filterByBrand = (value) => {
+    if (!value.length) setData(shoesData);
+
+    const filterData = shoesData.filter((item) => item.brand.includes(value));
+    if (filterData.length) {
+      setData(filterData);
+    } else {
+      setData(shoesData);
+    }
+  };
 
   return (
     <View
@@ -46,32 +50,44 @@ const HomeScreen = () => {
         }}
       >
         <BrandTag
+          onfilter={() => filterByBrand("Puma")}
+          name={"Puma"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          onfilter={() => filterByBrand("Jordan")}
+          name={"Jordan"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <BrandTag
+          onfilter={() => filterByBrand("Nike")}
           name={"Nike"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <BrandTag
+          onfilter={() => filterByBrand("Adidas")}
           name={"Adidas"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <BrandTag
+          onfilter={() => filterByBrand("Balenciaga")}
           name={"Balenciaga"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
-        <BrandTag
+        {/* <BrandTag
+          onfilter={() => filterByBrand("Sketchers")}
           name={"Sketchers"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-        />
+        /> */}
         <BrandTag
+          onfilter={() => filterByBrand("Bata")}
           name={"Bata"}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
-        <BrandTag
-          name={"Puma"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
@@ -126,18 +142,20 @@ const HomeScreen = () => {
               }}
             >
               <Text
+                numberOfLines={1}
                 style={{
                   color: "white",
-                  fontSize: 18,
+                  maxWidth: "55%",
+                  fontSize: 17,
                   fontFamily: "Poppins_500Medium",
                 }}
               >
-                {item.name}
+                {item.brand}
               </Text>
               <Text
                 style={{
                   color: "white",
-                  fontSize: 20,
+                  fontSize: 16,
                   fontFamily: "Poppins_600SemiBold",
                 }}
               >
@@ -145,14 +163,16 @@ const HomeScreen = () => {
               </Text>
             </View>
             <Text
+              numberOfLines={1}
               style={{
                 color: "white",
                 marginHorizontal: 5,
                 fontFamily: "Poppins_400Regular",
                 paddingHorizontal: 5,
+                textTransform: "capitalize",
               }}
             >
-              {item.desc}
+              {item.name}
             </Text>
           </View>
         )}
@@ -162,9 +182,13 @@ const HomeScreen = () => {
   );
 };
 
-const BrandTag = ({ name, setActiveTab, activeTab }) => {
+const BrandTag = ({ name, onfilter, setActiveTab, activeTab }) => {
+  const onTap = () => {
+    setActiveTab(name);
+    onfilter();
+  };
   return (
-    <Pressable onPress={() => setActiveTab(name)}>
+    <Pressable onPress={onTap}>
       <View
         style={{
           paddingHorizontal: 18,
@@ -172,13 +196,11 @@ const BrandTag = ({ name, setActiveTab, activeTab }) => {
           borderRadius: 20,
           marginRight: 30,
           backgroundColor: activeTab === name ? "#F60400" : "#FD5100",
-          elevation: 5,
         }}
       >
         <Text
           style={{
             fontSize: 15,
-            // alignSelf: "center",
             fontFamily: "Poppins_300Light",
             letterSpacing: 1,
             color: "white",
