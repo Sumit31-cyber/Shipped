@@ -8,141 +8,168 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./styles";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
+
+import { Ionicons } from "@expo/vector-icons";
 
 const DetailScreen = () => {
   const [selectedSize, setSelectedSize] = useState(6);
   const [selectedColor, setSelectedColor] = useState("skyblue");
+  const navigation = useNavigation();
   const route = useRoute();
   const data = route.params?.item;
   return (
     <View style={styles.container}>
-      <View style={{ height: "55%" }}>
+      <View
+        style={{
+          height: "50%",
+
+          backgroundColor: "#C0D8C0",
+        }}
+      >
         <Image
           resizeMode="cover"
           style={{
-            height: "90%",
+            borderBottomRightRadius: 80,
+            height: "100%",
           }}
           source={{
             uri: data.image,
           }}
         />
-        <View
+        <Pressable
+          onPress={() => navigation.goBack()}
           style={{
-            backgroundColor: "#C0D8C0",
-            // position: "absolute",
-            height: "200%",
-            top: -50,
-            width: "230%",
-            alignSelf: "center",
-            borderTopLeftRadius: 500,
-            borderTopRightRadius: 500,
+            backgroundColor: "red",
+            position: "absolute",
+            paddingHorizontal: 12,
+            paddingVertical: 8,
+            letterSpacing: 2,
+            backgroundColor: "rgba(0,0,0,0.3)",
+            position: "absolute",
+            top: 20,
+            left: 10,
+            borderRadius: 50,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        ></View>
+        >
+          <Ionicons
+            name="arrow-back-circle-outline"
+            size={24}
+            color="white"
+            style={{ alignSelf: "center" }}
+          />
+          <Text
+            style={{
+              fontSize: 14,
+              textAlign: "center",
+              color: "white",
+              fontFamily: "Poppins_500Medium",
+              marginLeft: 8,
+            }}
+          >
+            {data.brand}
+          </Text>
+        </Pressable>
       </View>
       <View
         style={{
           backgroundColor: "#C0D8C0",
-          position: "absolute",
-          height: "55%",
-          width: "100%",
-          bottom: -40,
-          paddingLeft: 40,
-          paddingRight: 40,
+          flex: 1,
+          borderTopLeftRadius: 50,
+          paddingLeft: 25,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 20,
         }}
       >
-        <Text
-          style={{
-            fontSize: 18,
-            fontFamily: "Poppins_500Medium",
-            textAlign: "center",
-            letterSpacing: 2,
-            color: "rgba(256,256,256,0.8)",
-          }}
-        >
-          {data.name}
-        </Text>
-        <Text
-          style={{
-            fontSize: 14,
-            width: 120,
-            textAlign: "center",
-            borderRadius: 50,
-            backgroundColor: "rgba(0,0,0,0.3)",
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-            fontFamily: "Poppins_500Medium",
-            letterSpacing: 2,
-            marginBottom: 12,
-            color: "white",
-          }}
-        >
-          {data.brand}
-        </Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: "Poppins_500Medium",
+              textAlign: "center",
+              letterSpacing: 2,
+              color: "rgba(256,256,256,0.8)",
+            }}
+          >
+            {data.name}
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "rgba(256,256,256,0.8)",
+              fontFamily: "Poppins_500Medium",
+              letterSpacing: 2,
+              marginVertical: 10,
+            }}
+          >
+            Details
+          </Text>
 
-        <Text
-          style={{
-            fontSize: 18,
-            color: "rgba(256,256,256,0.8)",
-            fontFamily: "Poppins_500Medium",
-            letterSpacing: 2,
-            marginVertical: 10,
-          }}
-        >
-          Details
-        </Text>
-        <Text
-          numberOfLines={3}
-          style={{
-            fontSize: 13,
-            color: "rgba(256,256,256,256)",
-            fontFamily: "Poppins_200ExtraLight",
-            marginBottom: 10,
-          }}
-        >
-          {data.details}
-        </Text>
-        <View style={{ flexDirection: "row", marginTop: 30 }}>
           <Text
+            numberOfLines={3}
             style={{
-              fontSize: 18,
-              fontFamily: "Poppins_500Medium",
-              color: "rgba(256,256,256,0.8)",
-              letterSpacing: 2,
-              marginVertical: 5,
-              marginRight: 40,
+              fontSize: 13,
+              color: "rgba(256,256,256,256)",
+              fontFamily: "Poppins_200ExtraLight",
+              marginBottom: 10,
             }}
           >
-            Size
+            {data.details}
           </Text>
-          <View style={{ flexDirection: "row" }}>
-            <SizeBadge
-              selectedSize={selectedSize}
-              setSelectedSize={setSelectedSize}
-            />
+
+          <View style={{ flexDirection: "row", marginTop: 30 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontFamily: "Poppins_500Medium",
+                color: "rgba(256,256,256,0.8)",
+                letterSpacing: 2,
+                marginVertical: 5,
+                marginRight: 40,
+              }}
+            >
+              Size
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <SizeBadge
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
+              />
+            </View>
           </View>
-        </View>
-        <View style={{ flexDirection: "row", marginTop: 30 }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: "Poppins_500Medium",
-              letterSpacing: 2,
-              marginVertical: 5,
-              color: "rgba(256,256,256,0.8)",
-              marginRight: 30,
-            }}
-          >
-            Color
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <ColorBadge
-              selectedColor={selectedColor}
-              setSelectedColor={setSelectedColor}
-            />
+          <View style={{ flexDirection: "row", marginTop: 30 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontFamily: "Poppins_500Medium",
+                letterSpacing: 2,
+                marginVertical: 5,
+                color: "rgba(256,256,256,0.8)",
+                marginRight: 30,
+              }}
+            >
+              Color
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <ColorBadge
+                selectedColor={selectedColor}
+                setSelectedColor={setSelectedColor}
+              />
+            </View>
           </View>
-        </View>
-        <View style={{ flexDirection: "row", marginTop: 25 }}>
+        </ScrollView>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignContent: "flex-end",
+            marginTop: "auto",
+          }}
+        >
           <Text
             style={{
               fontSize: 18,
@@ -185,7 +212,7 @@ const DetailScreen = () => {
 const SizeBadge = ({ selectedSize, setSelectedSize }) => {
   const size = [6, 7, 8, 9];
 
-  return size.map((item) => {
+  return size.map((item, index) => {
     const onTap = () => {
       setSelectedSize(item);
     };
@@ -219,7 +246,7 @@ const ColorBadge = ({ selectedColor, setSelectedColor }) => {
     { name: "black", color: "black" },
   ];
 
-  return size.map((item) => {
+  return size.map((item, index) => {
     const onTap = () => {
       setSelectedColor(item.name);
     };
@@ -241,3 +268,17 @@ const ColorBadge = ({ selectedColor, setSelectedColor }) => {
 };
 
 export default DetailScreen;
+
+// <View
+// style={{
+//   backgroundColor: "red",
+//   position: "absolute",
+//   height: "55%",
+//   width: "100%",
+//   bottom: -40,
+//   paddingLeft: 40,
+//   paddingRight: 40,
+// }}
+// >
+//
+// </View>
