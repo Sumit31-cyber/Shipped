@@ -1,12 +1,14 @@
 import {
   Image,
   Pressable,
-  StyleSheet,
+  Animated,
   Text,
   View,
   ScrollView,
+  Dimensions,
+  useWindowDimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { styles } from "./styles";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
@@ -14,46 +16,71 @@ import { Ionicons } from "@expo/vector-icons";
 
 const DetailScreen = () => {
   const [selectedSize, setSelectedSize] = useState(6);
-  const [selectedColor, setSelectedColor] = useState("skyblue");
+  const [selectedColor, setSelectedColor] = useState("mud");
+  const [activeImage, setActiveImage] = useState(0);
+
+  const { width } = useWindowDimensions();
+  const scrollX = useRef(new Animated.Value(0)).current;
+
   const navigation = useNavigation();
   const route = useRoute();
   const data = route.params?.item;
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          height: "50%",
+      <View style={styles.imageContainerView}>
+        <View style={styles.imageContainer}>
+          <ScrollView
+            horizontal
+            pagingEnabled={true}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: false }
+            )}
+            showsHorizontalScrollIndicator={false}
+            style={{ height: "100%" }}
+          >
+            {data.image.map((item, index) => (
+              <Image
+                resizeMode="contain"
+                style={{
+                  width: Dimensions.get("window").width,
+                }}
+                source={{ uri: item }}
+              />
+            ))}
+          </ScrollView>
+          <View style={styles.indicator}>
+            {data.image.map((item, index) => {
+              const inputRange = [
+                (index - 1) * width,
+                index * width,
+                (index + 1) * width,
+              ];
+              const WIDTH = scrollX.interpolate({
+                inputRange,
+                outputRange: [10, 20, 10],
+                extrapolate: "clamp",
+              });
 
-          backgroundColor: "#C0D8C0",
-        }}
-      >
-        <Image
-          resizeMode="cover"
-          style={{
-            borderBottomRightRadius: 80,
-            height: "100%",
-          }}
-          source={{
-            uri: data.image,
-          }}
-        />
+              return (
+                <Animated.View
+                  key={index}
+                  style={{
+                    height: 10,
+                    width: WIDTH,
+                    backgroundColor: "#C0D8C0",
+                    marginLeft: 5,
+                    borderRadius: 10,
+                  }}
+                ></Animated.View>
+              );
+            })}
+          </View>
+        </View>
+
         <Pressable
           onPress={() => navigation.goBack()}
-          style={{
-            backgroundColor: "red",
-            position: "absolute",
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-            letterSpacing: 2,
-            backgroundColor: "rgba(0,0,0,0.3)",
-            position: "absolute",
-            top: 20,
-            left: 10,
-            borderRadius: 50,
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.brandBadge}
         >
           <Ionicons
             name="arrow-back-circle-outline"
@@ -61,30 +88,10 @@ const DetailScreen = () => {
             color="white"
             style={{ alignSelf: "center" }}
           />
-          <Text
-            style={{
-              fontSize: 14,
-              textAlign: "center",
-              color: "white",
-              fontFamily: "Poppins_500Medium",
-              marginLeft: 8,
-            }}
-          >
-            {data.brand}
-          </Text>
+          <Text style={styles.brandText}>{data.brand}</Text>
         </Pressable>
       </View>
-      <View
-        style={{
-          backgroundColor: "#C0D8C0",
-          flex: 1,
-          borderTopLeftRadius: 50,
-          paddingLeft: 25,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 20,
-        }}
-      >
+      <View style={styles.detailContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text
             style={{
@@ -97,17 +104,7 @@ const DetailScreen = () => {
           >
             {data.name}
           </Text>
-          <Text
-            style={{
-              fontSize: 18,
-              color: "rgba(256,256,256,0.8)",
-              fontFamily: "Poppins_500Medium",
-              letterSpacing: 2,
-              marginVertical: 10,
-            }}
-          >
-            Details
-          </Text>
+          <Text style={styles.detailText}>Details</Text>
 
           <Text
             numberOfLines={3}
@@ -122,18 +119,7 @@ const DetailScreen = () => {
           </Text>
 
           <View style={{ flexDirection: "row", marginTop: 30 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: "Poppins_500Medium",
-                color: "rgba(256,256,256,0.8)",
-                letterSpacing: 2,
-                marginVertical: 5,
-                marginRight: 40,
-              }}
-            >
-              Size
-            </Text>
+            <Text style={styles.sizeText}>Size</Text>
             <View style={{ flexDirection: "row" }}>
               <SizeBadge
                 selectedSize={selectedSize}
@@ -142,18 +128,7 @@ const DetailScreen = () => {
             </View>
           </View>
           <View style={{ flexDirection: "row", marginTop: 30 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: "Poppins_500Medium",
-                letterSpacing: 2,
-                marginVertical: 5,
-                color: "rgba(256,256,256,0.8)",
-                marginRight: 30,
-              }}
-            >
-              Color
-            </Text>
+            <Text style={styles.colorText}>Color</Text>
             <View style={{ flexDirection: "row" }}>
               <ColorBadge
                 selectedColor={selectedColor}
@@ -162,27 +137,8 @@ const DetailScreen = () => {
             </View>
           </View>
         </ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignContent: "flex-end",
-            marginTop: "auto",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: "Poppins_700Bold",
-              letterSpacing: 2,
-              marginVertical: 5,
-              marginRight: 40,
-              alignSelf: "center",
-              color: "white",
-            }}
-          >
-            {data.price}
-          </Text>
+        <View style={styles.cartContainer}>
+          <Text style={styles.priceText}>{data.price}</Text>
           <View
             style={{
               height: 50,
@@ -192,16 +148,7 @@ const DetailScreen = () => {
               justifyContent: "center",
             }}
           >
-            <Text
-              style={{
-                color: "white",
-                alignSelf: "center",
-                fontFamily: "Poppins_400Regular",
-                letterSpacing: 0.5,
-              }}
-            >
-              Add to Cart
-            </Text>
+            <Text style={styles.cartText}>Add to Cart</Text>
           </View>
         </View>
       </View>
@@ -209,7 +156,7 @@ const DetailScreen = () => {
   );
 };
 
-const SizeBadge = ({ selectedSize, setSelectedSize }) => {
+const SizeBadge = ({ selectedSize, setSelectedSize, scrollX }) => {
   const size = [6, 7, 8, 9];
 
   return size.map((item, index) => {
@@ -219,16 +166,15 @@ const SizeBadge = ({ selectedSize, setSelectedSize }) => {
     return (
       <Pressable
         onPress={onTap}
-        style={{
-          height: selectedSize === item ? 50 : 40,
-          width: selectedSize === item ? 50 : 40,
-          marginRight: 10,
-          alignItems: "center",
-          alignSelf: "center",
-          borderRadius: 15,
-          backgroundColor: selectedSize === item ? "red" : "#FD5100",
-          justifyContent: "center",
-        }}
+        style={[
+          styles.sizeSelectionBox,
+          {
+            height: selectedSize === item ? 50 : 40,
+            width: selectedSize === item ? 50 : 40,
+            backgroundColor:
+              selectedSize === item ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.1)",
+          },
+        ]}
       >
         <Text style={{ color: "white", fontSize: 18, textAlign: "center" }}>
           {item}
@@ -240,8 +186,8 @@ const SizeBadge = ({ selectedSize, setSelectedSize }) => {
 
 const ColorBadge = ({ selectedColor, setSelectedColor }) => {
   const size = [
-    { name: "skyblue", color: "#2FA4FF" },
-    { name: "green", color: "#B4E197" },
+    { name: "mud", color: "#8EA6B4" },
+    { name: "grey", color: "#DDDDDD" },
     { name: "white", color: "#fff" },
     { name: "black", color: "black" },
   ];
@@ -253,32 +199,17 @@ const ColorBadge = ({ selectedColor, setSelectedColor }) => {
     return (
       <Pressable
         onPress={onTap}
-        style={{
-          height: selectedColor === item.name ? 40 : 30,
-          width: selectedColor === item.name ? 40 : 30,
-          marginRight: 10,
-          borderRadius: 50,
-          backgroundColor: item.color,
-          justifyContent: "center",
-          alignSelf: "center",
-        }}
+        style={[
+          styles.colorSelectionBox,
+          {
+            height: selectedColor === item.name ? 40 : 30,
+            width: selectedColor === item.name ? 40 : 30,
+            backgroundColor: item.color,
+          },
+        ]}
       ></Pressable>
     );
   });
 };
 
 export default DetailScreen;
-
-// <View
-// style={{
-//   backgroundColor: "red",
-//   position: "absolute",
-//   height: "55%",
-//   width: "100%",
-//   bottom: -40,
-//   paddingLeft: 40,
-//   paddingRight: 40,
-// }}
-// >
-//
-// </View>

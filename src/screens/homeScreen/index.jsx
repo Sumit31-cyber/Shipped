@@ -139,7 +139,7 @@ const HomeScreen = () => {
                   borderBottomRightRadius: 23,
                 }}
                 source={{
-                  uri: item.image,
+                  uri: item.image[0],
                 }}
                 resizeMode="cover"
               />
