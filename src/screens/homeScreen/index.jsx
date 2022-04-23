@@ -13,10 +13,14 @@ import {
 import React, { useEffect, useState } from "react";
 import { shoesData } from "../../../assets/data";
 
+import { useNavigation } from "@react-navigation/native";
+
 const HomeScreen = () => {
-  const [activeTab, setActiveTab] = useState("Puma");
+  const [activeTab, setActiveTab] = useState("All");
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
+
+  const navigation = useNavigation();
 
   const [data, setData] = useState(shoesData);
 
@@ -49,6 +53,12 @@ const HomeScreen = () => {
           padding: 8,
         }}
       >
+        <BrandTag
+          onfilter={() => filterByBrand("₹")}
+          name={"All"}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
         <BrandTag
           onfilter={() => filterByBrand("Puma")}
           name={"Puma"}
@@ -110,71 +120,73 @@ const HomeScreen = () => {
         numColumns={2}
         data={data}
         renderItem={({ item }) => (
-          <View
-            style={{
-              marginHorizontal: 8,
-              marginVertical: 10,
-              height: 250,
-              width: width / 2.3,
-              backgroundColor: "#C8C6C6",
-              borderRadius: 12,
-            }}
-          >
-            <Image
-              style={{
-                height: 180,
-                borderTopLeftRadius: 12,
-                borderTopRightRadius: 12,
-                borderBottomRightRadius: 23,
-              }}
-              source={{
-                uri: item.image,
-              }}
-              resizeMode="cover"
-            />
+          <Pressable onPress={() => navigation.navigate("detail", { item })}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-                alignItems: "center",
+                marginHorizontal: 8,
+                marginVertical: 10,
+                height: 250,
+                width: width / 2.3,
+                backgroundColor: "#C8C6C6",
+                borderRadius: 12,
               }}
             >
+              <Image
+                style={{
+                  height: 180,
+                  borderTopLeftRadius: 12,
+                  borderTopRightRadius: 12,
+                  borderBottomRightRadius: 23,
+                }}
+                source={{
+                  uri: item.image,
+                }}
+                resizeMode="cover"
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
+                  paddingVertical: 5,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    color: "white",
+                    maxWidth: "55%",
+                    fontSize: 17,
+                    fontFamily: "Poppins_500Medium",
+                  }}
+                >
+                  {item.brand}
+                </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontFamily: "Poppins_600SemiBold",
+                  }}
+                >
+                  {item.price}
+                </Text>
+              </View>
               <Text
                 numberOfLines={1}
                 style={{
                   color: "white",
-                  maxWidth: "55%",
-                  fontSize: 17,
-                  fontFamily: "Poppins_500Medium",
+                  marginHorizontal: 5,
+                  fontFamily: "Poppins_400Regular",
+                  paddingHorizontal: 5,
+                  textTransform: "capitalize",
                 }}
               >
-                {item.brand}
-              </Text>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 16,
-                  fontFamily: "Poppins_600SemiBold",
-                }}
-              >
-                {item.price}
+                {item.name}
               </Text>
             </View>
-            <Text
-              numberOfLines={1}
-              style={{
-                color: "white",
-                marginHorizontal: 5,
-                fontFamily: "Poppins_400Regular",
-                paddingHorizontal: 5,
-                textTransform: "capitalize",
-              }}
-            >
-              {item.name}
-            </Text>
-          </View>
+          </Pressable>
         )}
       />
     </View>
@@ -203,6 +215,7 @@ const BrandTag = ({ name, onfilter, setActiveTab, activeTab }) => {
             fontSize: 15,
             fontFamily: "Poppins_300Light",
             letterSpacing: 1,
+            alignSelf: "center",
             color: "white",
           }}
         >

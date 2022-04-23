@@ -2,18 +2,22 @@ import { Image, Pressable, Text, TextInput, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { styles } from "./styles";
 import { FontAwesome5 } from "@expo/vector-icons";
-import {
-  Poppins_100Thin,
-  Poppins_200ExtraLight,
-  Poppins_300Light,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_600SemiBold,
-  Poppins_700Bold,
-} from "@expo-google-fonts/poppins";
+
+// import {
+//   Poppins_100Thin,
+//   Poppins_200ExtraLight,
+//   Poppins_300Light,
+//   Poppins_400Regular,
+//   Poppins_500Medium,
+//   Poppins_600SemiBold,
+//   Poppins_700Bold,
+// } from "@expo-google-fonts/poppins";
+
 import { useNavigation } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+
+// import { useFonts } from "expo-font";
+// import AppLoading from "expo-app-loading";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { authentication } from "../../../firebaseConfig";
 
@@ -22,15 +26,15 @@ const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let [loadFonts] = useFonts({
-    Poppins_100Thin,
-    Poppins_200ExtraLight,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-    Poppins_700Bold,
-  });
+  // let [loadFonts] = useFonts({
+  //   Poppins_100Thin,
+  //   Poppins_200ExtraLight,
+  //   Poppins_300Light,
+  //   Poppins_400Regular,
+  //   Poppins_500Medium,
+  //   Poppins_600SemiBold,
+  //   Poppins_700Bold,
+  // });
 
   const signInUser = () => {
     signInWithEmailAndPassword(authentication, email, password)
@@ -42,9 +46,11 @@ const SignInScreen = () => {
   };
 
   const navigation = useNavigation();
-  if (!loadFonts) {
-    return <AppLoading />;
-  }
+
+  // if (!loadFonts) {
+  //   return <AppLoading />;
+  // }
+
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { fontFamily: "Poppins_600SemiBold" }]}>

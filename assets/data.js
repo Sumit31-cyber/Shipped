@@ -11,6 +11,16 @@ const shoesData = [
         price: "₹9,695",
     },
     {
+        id: "24",
+        brand: "Balenciaga",
+        name: "MEN'S X-PANDER TRAINERS IN GREEN/SILVER",
+        image:
+            "https://balenciaga.dam.kering.com/m/3ec8336af8576ed9/Large-653871W2RA31212_F.jpg?v=3",
+        details:
+            "X-Pander Trainers in grey, black and white mesh and nylon",
+        price: "₹19,999",
+    },
+    {
         id: "2",
         brand: "Nike",
         name: "Nike Air Max 2021",
@@ -21,15 +31,16 @@ const shoesData = [
         price: "₹14,495",
     },
     {
-        id: "3",
-        brand: "Nike",
-        name: "Nike Air Max Pre-Day",
+        id: "42",
+        brand: "Puma",
+        name: "Softride Enzo NXT Men's Sneakers",
         image:
-            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ee6f714a-597d-446a-8e89-a78b960b3a1a/air-max-pre-day-shoes-jMh2rB.png",
+            "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1500,h_1500/global/195234/01/sv01/fnd/IND/fmt/png/Softride-Enzo-NXT-Men's-Sneakers",
         details:
-            "Taking the classic look of heritage Nike Running into a new realm, the Nike Air Max Pre-Day brings you a fast-paced look that's ready for today's world.A true nod to the past with a design made from at least 20% recycled material by weight, it keeps the retro-athletics aesthetic alive.A new Air window energises the look, mixing head-turning style with unbelievably soft cushioning.",
-        price: "₹11,495",
+            "With an iconic design inspired by Japanese bullet trains and water droplets, push your style full speed ahead in the Air Max 97. Full-length Nike Air cushioning lets you ride in first-class comfort.",
+        price: "₹5,499",
     },
+
     {
         id: "4",
         brand: "Nike",
@@ -40,15 +51,16 @@ const shoesData = [
             "With an iconic design inspired by Japanese bullet trains and water droplets, push your style full speed ahead in the Air Max 97. Full-length Nike Air cushioning lets you ride in first-class comfort.",
         price: "₹15,995",
     },
+
     {
-        id: "5",
-        brand: "Nike",
-        name: "Nike Air Max 97",
+        id: "12",
+        brand: "Adidas",
+        name: "FORUM EXHIBIT LOW SHOES",
         image:
-            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/aa8f3178-4244-479c-9910-1bfa6e77933f/air-max-97-shoes-VhxM4R.png",
+            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/545c5a209c564aa8b1f4ae3101664fe1_9366/Forum_Exhibit_Low_Shoes_White_GZ0937_01_standard.jpg",
         details:
-            "With the iconic ripple design that was inspired by Japanese bullet trains, the Nike Air Max 97 lets you push your style full speed ahead.Taking the revolutionary full-length Nike Air unit that shook up the running world and adding fresh materials, it lets you ride in comfort.",
-        price: "₹15,495",
+            "Swagger on the hardwood. Swagger on the sidelines. Pro basketball players are all about style. A reworked version of the iconic adidas Forum, these B-ball-inspired shoes show off a layered design that rivals the looks of basketball's best dressed. The sleek leather upper has a double D-ring for double the style.",
+        price: "₹8,599.00",
     },
     {
         id: "6",
@@ -59,6 +71,16 @@ const shoesData = [
         details:
             "Meet the leader of the pack. First released in 1987, the Nike Air Max 1 was the first shoe in the family to bring Air to the world. With a fast-paced look, tried-and-true cushioning and classic wavy mudguard, it's no wonder it's reigned supreme ever since.",
         price: "₹13,995",
+    },
+    {
+        id: "46",
+        brand: "Jordan",
+        name: "Air Jordan XXXVI PF",
+        image:
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/8b78b5c1-364e-4764-a63c-52f26746afea/air-jordan-xxxvi-pf-basketball-shoes-fjPfDg.png",
+        details:
+            "The Air Jordan XXXVI isn't just the next shoe up in the iconic franchise; it's an expression of the drive and energy that sparked a basketball revolution.It's one of the lightest Air Jordan game shoes to date, featuring a minimal but durable leno-weave upper reinforced with a TPU ribbon and synthetic overlays.",
+        price: "₹16,499",
     },
     {
         id: "7",
@@ -101,6 +123,16 @@ const shoesData = [
         price: "₹6,999.50",
     },
     {
+        id: "17",
+        brand: "Balenciaga",
+        name: "MEN'S TRIPLE S TRAINERS IN BLACK",
+        image:
+            "https://balenciaga.dam.kering.com/m/3af9cb97f6786d10/Large-533882W09OM1000_F.jpg?v=3",
+        details:
+            "Triple S Trainers in black double foam and mesh.",
+        price: "₹9,999",
+    },
+    {
         id: "11",
         brand: "Adidas",
         name: "X9000L1 SHOES",
@@ -111,15 +143,16 @@ const shoesData = [
         price: "₹5,599.50",
     },
     {
-        id: "12",
-        brand: "Adidas",
-        name: "FORUM EXHIBIT LOW SHOES",
+        id: "21",
+        brand: "Balenciaga",
+        name: "MEN'S TRIPLE S TRAINERS IN BLACK",
         image:
-            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/545c5a209c564aa8b1f4ae3101664fe1_9366/Forum_Exhibit_Low_Shoes_White_GZ0937_01_standard.jpg",
+            "https://balenciaga.dam.kering.com/m/154df30b94fce56b/Large-534217W2CA11000_F.jpg?v=4",
         details:
-            "Swagger on the hardwood. Swagger on the sidelines. Pro basketball players are all about style. A reworked version of the iconic adidas Forum, these B-ball-inspired shoes show off a layered design that rivals the looks of basketball's best dressed. The sleek leather upper has a double D-ring for double the style.",
-        price: "₹8,599.00",
-    }, {
+            "Triple S Trainers in black double foam and mesh",
+        price: "10,999",
+    },
+    {
         id: "13",
         brand: "Adidas",
         name: "ULTRABOOST UNCAGED LAB SHOES",
@@ -156,16 +189,7 @@ const shoesData = [
             "Breeze through short- and middle-distance runs in these adidas shoes built for lightweight comfort. BOOST delivers incredible energy return and instant comfort with each step to keep you going, and lightweight Bounce cushioning provides enhanced comfort and flexibility. A breathable upper welcomes airflow to help you stay cool when the intensity builds.",
         price: "₹15,999",
     },
-    {
-        id: "17",
-        brand: "Balenciaga",
-        name: "MEN'S TRIPLE S TRAINERS IN BLACK",
-        image:
-            "https://balenciaga.dam.kering.com/m/3af9cb97f6786d10/Large-533882W09OM1000_F.jpg?v=3",
-        details:
-            "Triple S Trainers in black double foam and mesh.",
-        price: "₹9,999",
-    },
+
     {
         id: "18",
         brand: "Balenciaga",
@@ -197,15 +221,16 @@ const shoesData = [
         price: "₹19,200",
     },
     {
-        id: "21",
-        brand: "Balenciaga",
-        name: "MEN'S TRIPLE S TRAINERS IN BLACK",
+        id: "28",
+        brand: "Bata",
+        name: "WEINBRENNER OLIVE SNEAKER FOR MEN",
         image:
-            "https://balenciaga.dam.kering.com/m/154df30b94fce56b/Large-534217W2CA11000_F.jpg?v=4",
+            "https://www.bata.in/dw/image/v2/BCLG_PRD/on/demandware.static/-/Sites-bata-in-master-catalog/default/dwa9aab11c/images/large/8397214_1.jpeg?sw=817",
         details:
-            "Triple S Trainers in black double foam and mesh",
-        price: "10,999",
+            "Grab the controls and make your run your own. These sleek adidas X9000L1 running shoes make a statement on city streets. Bounce cushioning is lightweight and flexible for long-lasting comfort.",
+        price: "₹1,499",
     },
+
     {
         id: "22",
         brand: "Balenciaga",
@@ -227,15 +252,16 @@ const shoesData = [
         price: "₹20,999",
     },
     {
-        id: "24",
-        brand: "Balenciaga",
-        name: "MEN'S X-PANDER TRAINERS IN GREEN/SILVER",
+        id: "5",
+        brand: "Nike",
+        name: "Nike Air Max 97",
         image:
-            "https://balenciaga.dam.kering.com/m/3ec8336af8576ed9/Large-653871W2RA31212_F.jpg?v=3",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/aa8f3178-4244-479c-9910-1bfa6e77933f/air-max-97-shoes-VhxM4R.png",
         details:
-            "X-Pander Trainers in grey, black and white mesh and nylon",
-        price: "₹19,999",
+            "With the iconic ripple design that was inspired by Japanese bullet trains, the Nike Air Max 97 lets you push your style full speed ahead.Taking the revolutionary full-length Nike Air unit that shook up the running world and adding fresh materials, it lets you ride in comfort.",
+        price: "₹15,495",
     },
+
     {
         id: "25",
         brand: "Balenciaga",
@@ -266,15 +292,16 @@ const shoesData = [
             "Runner Trainers in blue, white, grey and black mesh and nylon",
         price: "₹11,999",
     },
+
     {
-        id: "28",
-        brand: "Bata",
-        name: "WEINBRENNER OLIVE SNEAKER FOR MEN",
+        id: "3",
+        brand: "Nike",
+        name: "Nike Air Max Pre-Day",
         image:
-            "https://www.bata.in/dw/image/v2/BCLG_PRD/on/demandware.static/-/Sites-bata-in-master-catalog/default/dwa9aab11c/images/large/8397214_1.jpeg?sw=817",
+            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ee6f714a-597d-446a-8e89-a78b960b3a1a/air-max-pre-day-shoes-jMh2rB.png",
         details:
-            "Grab the controls and make your run your own. These sleek adidas X9000L1 running shoes make a statement on city streets. Bounce cushioning is lightweight and flexible for long-lasting comfort.",
-        price: "₹1,499",
+            "Taking the classic look of heritage Nike Running into a new realm, the Nike Air Max Pre-Day brings you a fast-paced look that's ready for today's world.A true nod to the past with a design made from at least 20% recycled material by weight, it keeps the retro-athletics aesthetic alive.A new Air window energises the look, mixing head-turning style with unbelievably soft cushioning.",
+        price: "₹11,495",
     },
     {
         id: "29",
@@ -406,16 +433,7 @@ const shoesData = [
             "Introducing the lightweight and tech inspired shoes from the latest one8 collection. The one8 Virat Kohli Softride Premier walkingshoe is crafted to offer smooth sprints.",
         price: "₹6,000",
     },
-    {
-        id: "42",
-        brand: "Puma",
-        name: "Softride Enzo NXT Men's Sneakers",
-        image:
-            "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1500,h_1500/global/195234/01/sv01/fnd/IND/fmt/png/Softride-Enzo-NXT-Men's-Sneakers",
-        details:
-            "43",
-        price: "₹5,499",
-    },
+
     {
         id: "44",
         brand: "Puma",
@@ -436,16 +454,7 @@ const shoesData = [
             "Go hard or go home in the power performance Twitch Runner. Modelled after PUMA’s celebrated Velocity Nitro, the Twitch Runner boasts clean lines and slick design detail.",
         price: "₹5,499",
     },
-    {
-        id: "46",
-        brand: "Jordan",
-        name: "Air Jordan XXXVI PF",
-        image:
-            "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/8b78b5c1-364e-4764-a63c-52f26746afea/air-jordan-xxxvi-pf-basketball-shoes-fjPfDg.png",
-        details:
-            "The Air Jordan XXXVI isn't just the next shoe up in the iconic franchise; it's an expression of the drive and energy that sparked a basketball revolution.It's one of the lightest Air Jordan game shoes to date, featuring a minimal but durable leno-weave upper reinforced with a TPU ribbon and synthetic overlays.",
-        price: "₹16,499",
-    },
+
     {
         id: "47",
         brand: "Jordan",
