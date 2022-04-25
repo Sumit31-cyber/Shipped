@@ -14,12 +14,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { addDoc, collection } from "firebase/firestore";
 
 const DetailScreen = () => {
   const [selectedSize, setSelectedSize] = useState(6);
   const [selectedColor, setSelectedColor] = useState("mud");
+  const [liked, setLiked] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [uid, setUid] = useState("");
   const { width } = useWindowDimensions();
@@ -42,6 +43,7 @@ const DetailScreen = () => {
   };
 
   const collectionRef = collection(db, `Cart ${uid}`);
+  const likeColRef = collection(db, `Like ${uid}`);
 
   return (
     <View style={styles.container}>
@@ -99,7 +101,7 @@ const DetailScreen = () => {
 
         <Pressable
           onPress={() => navigation.goBack()}
-          style={styles.brandBadge}
+          style={[styles.brandBadge, { top: 20, left: 10 }]}
         >
           <Ionicons
             name="arrow-back-circle-outline"
@@ -108,6 +110,31 @@ const DetailScreen = () => {
             style={{ alignSelf: "center" }}
           />
           <Text style={styles.brandText}>{data.brand}</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.brandBadge, { top: 20, right: 10 }]}
+          onPress={() => {
+            addDoc(likeColRef, {
+              name: data.name,
+              price: data.price,
+              image: data.image[0],
+              brand: data.brand,
+              size: selectedSize,
+              color: selectedColor,
+              uid: uid,
+            })
+              .then(() => {
+                setLiked(true);
+              })
+              .catch((error) => console.warn(error.message));
+          }}
+        >
+          <MaterialIcons
+            name="favorite"
+            size={24}
+            color={liked ? "red" : "white"}
+          />
         </Pressable>
       </View>
       <View style={styles.detailContainer}>

@@ -49,7 +49,7 @@ export default function App() {
         <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="cart" component={CartScreen} />
         <Stack.Screen name="order" component={OrderScreen} />
-        <Stack.Screen name="Favorite" component={FavoriteScreen} />
+        <Stack.Screen name="favorite" component={FavoriteScreen} />
         <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
         <Stack.Screen name="detail" component={DetailScreen} options={{ headerShown: false }} />
       </Stack.Navigator>

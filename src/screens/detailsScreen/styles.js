@@ -27,8 +27,7 @@ export const styles = StyleSheet.create({
         letterSpacing: 2,
         backgroundColor: "rgba(0,0,0,0.3)",
         position: "absolute",
-        top: 20,
-        left: 10,
+
         borderRadius: 50,
         flexDirection: "row",
         justifyContent: "center",
