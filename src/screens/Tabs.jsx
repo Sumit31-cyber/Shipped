@@ -7,6 +7,7 @@ import ProfileScreen from "../screens/profileScreen/ProfileScreen";
 import HomeScreen from "./homeScreen";
 import LikeScreen from "./likeScreen/LikeScreen";
 import CustomHeader from "../components/CustomHeader";
+import SearchScreen from "./searchScreen";
 
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
@@ -41,14 +42,14 @@ const Tabs = () => {
           }}
         />
         <Tab.Screen
-          name="Like"
-          component={LikeScreen}
+          name="Search"
+          component={SearchScreen}
           options={{
             tabBarShowLabel: false,
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <AntDesign
-                name="hearto"
+                name="search1"
                 size={24}
                 color={focused ? "#FD5100" : "#323232"}
               />
