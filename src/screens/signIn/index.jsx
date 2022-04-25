@@ -40,7 +40,7 @@ const SignInScreen = () => {
     signInWithEmailAndPassword(authentication, email, password)
       .then((result) => {
         console.log("Successful");
-        navigation.navigate("home");
+        navigation.navigate("Tabs");
       })
       .catch((error) => Alert.alert(error.message));
   };

@@ -21,6 +21,8 @@ import {
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import DetailScreen from './src/screens/detailsScreen';
+import OrderScreen from './src/screens/orderScreen/OrderScreen';
+import FavoriteScreen from './src/screens/favoriteScreen';
 
 export default function App() {
 
@@ -41,11 +43,13 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Tabs'>
+      <Stack.Navigator initialRouteName='onBoarding'>
         <Stack.Screen name="onBorading" component={OnBoarding} options={{ headerShown: false }} />
         <Stack.Screen name="signin" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="cart" component={CartScreen} />
+        <Stack.Screen name="order" component={OrderScreen} />
+        <Stack.Screen name="Favorite" component={FavoriteScreen} />
         <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
         <Stack.Screen name="detail" component={DetailScreen} options={{ headerShown: false }} />
       </Stack.Navigator>

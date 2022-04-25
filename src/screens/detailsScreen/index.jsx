@@ -7,24 +7,42 @@ import {
   ScrollView,
   Dimensions,
   useWindowDimensions,
+  Alert,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import { authentication, db } from "../../../firebaseConfig";
+import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { Ionicons } from "@expo/vector-icons";
+import { addDoc, collection } from "firebase/firestore";
 
 const DetailScreen = () => {
   const [selectedSize, setSelectedSize] = useState(6);
   const [selectedColor, setSelectedColor] = useState("mud");
   const [activeImage, setActiveImage] = useState(0);
-
+  const [uid, setUid] = useState("");
   const { width } = useWindowDimensions();
   const scrollX = useRef(new Animated.Value(0)).current;
-
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getUserUid();
+  }, []);
+
   const route = useRoute();
   const data = route.params?.item;
+
+  const getUserUid = () => {
+    authentication.onAuthStateChanged((user) => {
+      if (user) {
+        setUid(user.uid);
+      }
+    });
+  };
+
+  const collectionRef = collection(db, `Cart ${uid}`);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainerView}>
@@ -44,6 +62,7 @@ const DetailScreen = () => {
                 resizeMode="contain"
                 style={{
                   width: Dimensions.get("window").width,
+                  borderRadius: 20,
                 }}
                 source={{ uri: item }}
               />
@@ -139,17 +158,35 @@ const DetailScreen = () => {
         </ScrollView>
         <View style={styles.cartContainer}>
           <Text style={styles.priceText}>{data.price}</Text>
-          <View
-            style={{
-              height: 50,
-              width: 200,
-              backgroundColor: "black",
-              borderRadius: 100,
-              justifyContent: "center",
+          <Pressable
+            onPress={() => {
+              addDoc(collectionRef, {
+                name: data.name,
+                price: data.price,
+                image: data.image[0],
+                brand: data.brand,
+                size: selectedSize,
+                color: selectedColor,
+                uid: uid,
+              })
+                .then(() => {
+                  navigation.navigate("cart");
+                })
+                .catch((error) => console.warn(error.message));
             }}
           >
-            <Text style={styles.cartText}>Add to Cart</Text>
-          </View>
+            <View
+              style={{
+                height: 50,
+                width: 200,
+                backgroundColor: "black",
+                borderRadius: 100,
+                justifyContent: "center",
+              }}
+            >
+              <Text style={styles.cartText}>Add to Cart</Text>
+            </View>
+          </Pressable>
         </View>
       </View>
     </View>
