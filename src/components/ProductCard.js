@@ -31,12 +31,11 @@ export const ProductCard = ({
         <View
             style={{
                 height: 130,
-                backgroundColor: "#fff",
+                backgroundColor: "rgba(0,0,0,0.1)",
                 flexDirection: "row",
                 alignItem: "center",
                 padding: 12,
                 borderRadius: 20,
-                elevation: 4,
                 marginBottom: 20,
                 marginHorizontal: 5,
                 marginTop: 5,
@@ -119,19 +118,20 @@ export const ProductCard = ({
                     <Pressable
                         onPress={() => (quantity === 1 ? null : setQuantity(quantity - 1))}
                     >
-                        <AntDesign name="minuscircleo" size={20} color="black" />
+                        <AntDesign name="minuscircleo" size={20} color="rgba(0,0,0,0.4)" />
                     </Pressable>
                     <Text
                         style={{
                             marginHorizontal: 15,
                             fontSize: 15,
+                            color: "rgba(0,0,0,0.4)",
                             fontFamily: "Poppins_500Medium",
                         }}
                     >
                         {quantity}
                     </Text>
                     <Pressable onPress={() => setQuantity(quantity + 1)}>
-                        <AntDesign name="pluscircleo" size={20} color="black" />
+                        <AntDesign name="pluscircleo" size={20} color="rgba(0,0,0,0.4)" />
                     </Pressable>
                 </View>
             </View>
