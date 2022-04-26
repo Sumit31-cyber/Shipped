@@ -4,7 +4,7 @@ import { authentication, db } from "../../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { styles } from "./styles";
 
-const OrderScreen = () => {
+const FavoriteScreen = () => {
   const [uid, setUid] = useState("");
   const [orders, setOrders] = useState([]);
 
@@ -15,7 +15,7 @@ const OrderScreen = () => {
       }
     });
   };
-  const colRef = collection(db, `Order ${uid}`);
+  const colRef = collection(db, `Like ${uid}`);
   const userData = async () => {
     const querySnapshot = await getDocs(colRef);
     const data = querySnapshot.docs.map((doc) => doc.data());
@@ -28,12 +28,18 @@ const OrderScreen = () => {
   }, [uid]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        backgroundColor: "white",
+        flex: 1,
+        padding: 10,
+      }}
+    >
       <FlatList
         data={orders}
         renderItem={({ item }) => {
           return (
-            <View style={styles.cardContainer}>
+            <View style={styles.container}>
               <Image
                 style={styles.image}
                 resizeMode="cover"
@@ -41,7 +47,7 @@ const OrderScreen = () => {
                   uri: item.image,
                 }}
               />
-              <View style={styles.detailContainer}>
+              <View style={styles.textContainer}>
                 <Text
                   numberOfLines={1}
                   style={styles.text}
@@ -58,4 +64,4 @@ const OrderScreen = () => {
   );
 };
 
-export default OrderScreen;
+export default FavoriteScreen;

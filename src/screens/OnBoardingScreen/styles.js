@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 40,
         paddingVertical: 30,
-        color: '#DFDFDE',
+        color: 'rgba(0,0,0,0.3)',
         letterSpacing: 2
     },
     text: {

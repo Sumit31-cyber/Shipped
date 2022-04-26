@@ -13,7 +13,7 @@ const CustomHeader = () => {
                 <AntDesign name="logout" size={24} color="black" style={{ alignSelf: 'center' }} />
             </Pressable>
             <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', flexDirection: 'row', }}>
-                <Image source={require('../../assets/images/logo.jpg')} style={{ height: 100, width: 130 }} />
+                <Image source={require('../../assets/images/logo2.jpg')} style={{ height: 100, width: 130 }} />
             </View>
             <Pressable onPress={() => navigation.navigate("cart")}>
 

@@ -6,73 +6,37 @@ import {
   Text,
   View,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "./styles";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: "white" }}>
+    <View style={styles.container}>
       <Pressable
-        onPress={() => navigation.push("order")}
-        style={{
-          backgroundColor: "rgba(0,0,0,0.1)",
-          borderRadius: 50,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 10,
-          paddingVertical: 5,
-          marginBottom: 20,
-        }}
+        onPress={() => navigation.push("Order")}
+        style={styles.pressableContainer}
       >
-        <Text
-          style={{
-            fontSize: 18,
-            color: "black",
-            padding: 10,
-            fontFamily: "Poppins_300Light",
-            textTransform: "uppercase",
-            letterSpacing: 1.2,
-          }}
-        >
-          Orders
-        </Text>
-        <AntDesign
-          name="arrowright"
+        <Text style={styles.text}>Orders</Text>
+        <Feather
+          name="check-circle"
           size={24}
-          color="black"
+          color="rgba(0,0,0,0.5)"
           style={{ alignSelf: "center" }}
         />
       </Pressable>
 
       <Pressable
-        onPress={() => navigation.push("favorite")}
-        style={{
-          backgroundColor: "rgba(0,0,0,0.1)",
-          borderRadius: 50,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 10,
-          paddingVertical: 5,
-        }}
+        onPress={() => navigation.push("Favorite")}
+        style={styles.pressableContainer}
       >
-        <Text
-          style={{
-            fontSize: 18,
-            color: "black",
-            padding: 10,
-            fontFamily: "Poppins_300Light",
-            textTransform: "uppercase",
-            letterSpacing: 1.2,
-          }}
-        >
-          Favorite
-        </Text>
-        <AntDesign
-          name="arrowright"
-          size={24}
-          color="black"
+        <Text style={styles.text}>Favorite</Text>
+        <MaterialIcons
           style={{ alignSelf: "center" }}
+          name="favorite"
+          size={24}
+          color="rgba(0,0,0,0.5)"
         />
       </Pressable>
     </View>
@@ -80,7 +44,3 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({
-  text: { fontSize: 16, fontFamily: "Poppins_300Light" },
-});

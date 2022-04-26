@@ -16,6 +16,7 @@ import { shoesData } from "../../../assets/data";
 
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import { styles } from "./styles";
 
 const SearchScreen = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -42,43 +43,18 @@ const SearchScreen = () => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        flex: 1,
-        padding: 12,
-      }}
-    >
+    <View style={styles.container}>
       <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
-      <View
-        style={{
-          backgroundColor: "rgba(0,0,0,0.1)",
-          height: 60,
-          borderRadius: 50,
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-          flexDirection: "row",
-          marginBottom: 20,
-        }}
-      >
+      <View style={styles.searchContainer}>
         <TextInput
-          style={{
-            fontSize: 18,
-            fontFamily: "Poppins_300Light",
-            flex: 1,
-          }}
+          style={styles.textImputStyle}
           value={search}
           placeholder="Search"
           onChangeText={(value) => setSearch(value)}
         />
         <Pressable
           onPress={() => filterByBrand(search)}
-          style={{
-            alignSelf: "center",
-            backgroundColor: "white",
-            padding: 10,
-            borderRadius: 50,
-          }}
+          style={styles.searchIconContainer}
         >
           <AntDesign
             name="search1"
@@ -88,12 +64,7 @@ const SearchScreen = () => {
           />
         </Pressable>
       </View>
-      {/* <View
-          style={{
-            alignItems: "center",
-            marginBottom: 90,
-          }}
-        > */}
+
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -106,68 +77,21 @@ const SearchScreen = () => {
         data={data}
         renderItem={({ item }) => (
           <Pressable onPress={() => navigation.navigate("detail", { item })}>
-            <View
-              style={{
-                marginHorizontal: 8,
-                marginVertical: 10,
-                height: 250,
-                width: width / 2.3,
-                backgroundColor: "#C8C6C6",
-                borderRadius: 12,
-              }}
-            >
+            <View style={[styles.cardContainer, { width: width / 2.3 }]}>
               <Image
-                style={{
-                  height: 180,
-                  borderTopLeftRadius: 12,
-                  borderTopRightRadius: 12,
-                  borderBottomRightRadius: 23,
-                }}
+                style={styles.image}
                 source={{
                   uri: item.image[0],
                 }}
                 resizeMode="cover"
               />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    color: "white",
-                    maxWidth: "55%",
-                    fontSize: 17,
-                    fontFamily: "Poppins_500Medium",
-                  }}
-                >
+              <View style={styles.detailContainer}>
+                <Text numberOfLines={1} style={styles.brandTextStyle}>
                   {item.brand}
                 </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 16,
-                    fontFamily: "Poppins_600SemiBold",
-                  }}
-                >
-                  {item.price}
-                </Text>
+                <Text style={styles.priceTextStyle}>{item.price}</Text>
               </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "white",
-                  marginHorizontal: 5,
-                  fontFamily: "Poppins_400Regular",
-                  paddingHorizontal: 5,
-                  textTransform: "capitalize",
-                }}
-              >
+              <Text numberOfLines={1} style={styles.nameTextStyle}>
                 {item.name}
               </Text>
             </View>
@@ -175,39 +99,6 @@ const SearchScreen = () => {
         )}
       />
     </View>
-    // </View>
-  );
-};
-
-const BrandTag = ({ name, onfilter, setActiveTab, activeTab }) => {
-  const onTap = () => {
-    setActiveTab(name);
-    onfilter();
-  };
-  return (
-    <Pressable onPress={onTap}>
-      <View
-        style={{
-          paddingHorizontal: 18,
-          paddingVertical: 5,
-          borderRadius: 20,
-          marginRight: 30,
-          backgroundColor: activeTab === name ? "#F60400" : "#FD5100",
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 15,
-            fontFamily: "Poppins_300Light",
-            letterSpacing: 1,
-            alignSelf: "center",
-            color: "white",
-          }}
-        >
-          {name}
-        </Text>
-      </View>
-    </Pressable>
   );
 };
 
